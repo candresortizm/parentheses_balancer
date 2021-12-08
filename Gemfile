@@ -27,8 +27,12 @@ gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails', '~> 5.0.0'
+  begin
+    gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+    gem 'rspec-rails', '~> 5.0.0'
+  rescue LoadError => e
+    raise e unless ENV['RAILS_ENV'] == "production"
+  end
 end
 
 group :development do
